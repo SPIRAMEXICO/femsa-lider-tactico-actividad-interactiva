@@ -1,0 +1,194 @@
+/* Copyright SPIRA-México 2022 - Software que cambia vidas! github.com/jussef */
+
+body,
+html {
+	overflow: hidden;
+}
+
+.bg1 {
+	/* background: url(../images/bg1.png) no-repeat center center fixed; */
+	background-color: #eafbff;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+#box {
+	position: absolute;
+	background-color: #fff;
+	left: 50%;
+	top: 50%;
+	/*para Firefox*/
+	-moz-border-radius: 15px;
+	/*para Safari y Chrome*/
+	-webkit-border-radius: 15px;
+	/* para Opera */
+	border-radius: 15px;
+	box-shadow: 0px 0px 30px #003156;
+	overflow: hidden;
+}
+
+#content {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+#com {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	margin: 0px !important;
+}
+
+#menuBar {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+}
+
+#progressBar {
+	position: absolute;
+	width: 30%;
+	background: #d8d8d8;
+	bottom: -50px;
+	/*box-shadow: 0px 0px 5px #000;*/
+	padding: 4px;
+	height: 6px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+}
+#progress {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	left: 0px;
+	top: 0px;
+	background-color: #0b053f;
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+	border-radius: 5px 5px 5px 5px;
+}
+#progressDatos {
+	font-family: 'Lato';
+	font-size: 15px;
+	color: #fff;
+	position: absolute;
+	top: -3px;
+	right: -50px;
+	padding: 0px;
+}
+
+.oculto {
+	display: none;
+}
+#bloqueo {
+	background-color: #242424;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	display: none;
+}
+#bloqueo img {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: -150px;
+	margin-left: -150px;
+}
+
+.btnNav {
+	position: absolute;
+}
+
+.btn {
+	cursor: pointer;
+}
+.btn:hover {
+	filter: drop-shadow(2px 4px 12px red);
+}
+
+.back_botones {
+	bottom: 28px;
+	left: 3px;
+	width: 60px;
+	height: 59px;
+}
+.nav-naranja {
+	background-color: #f58426 !important;
+}
+.nav-verde {
+	background-color: #c3d600 !important;
+}
+.boton_temario {
+	top: -30px;
+	left: 15px;
+	width: 76px;
+	height: 75px;
+}
+.boton_menu {
+	top: -705px;
+	left: 267px;
+	width: 124px;
+	height: 36px;
+}
+.botonInfo {
+	position: absolute;
+	top: 344px;
+	left: 409px;
+	cursor: pointer;
+}
+
+.botonInfoDer {
+	position: absolute;
+	top: 388px;
+	left: 573px;
+	cursor: pointer;
+}
+.botonInfoIzq {
+	position: absolute;
+	top: 388px;
+	left: 244px;
+	cursor: pointer;
+}
+.botonInactivo {
+	cursor: default;
+	opacity: 0.5;
+}
+
+.botonActivo {
+	cursor: pointer;
+	opacity: 1;
+}
+.boton_exit {
+	top: -770px;
+	left: 1165px;
+}
+.boton_audio,
+.boton_audio_off {
+	top: -800px;
+	left: 1175px;
+}
+.boton_reload {
+	top: -778px;
+	left: 1204px;
+}
+.boton_prev {
+	top: -97px;
+	left: 41px;
+}
+.boton_next {
+	top: -97px;
+	left: 1067px;
+}
+.fondo_general {
+	top: -790px;
+	left: 0px;
+}
+.pleca {
+	top: -787px;
+	left: 0px;
+}

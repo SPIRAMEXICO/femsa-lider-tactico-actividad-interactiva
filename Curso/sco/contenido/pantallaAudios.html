@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Language" content="es" />
+    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Last-Modified" content="0" />
+    <meta http-equiv="Cache-Control" content="no-cache, mustrevalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/preloadjs-0.6.2.min.js"></script>
+    <script src="js/anime.min.js"></script>
+    <script src="js/Animations.js"></script>
+    <script src="js/howler.min.js"></script>
+    <script src="js/Animations.js"></script>
+    <link rel="stylesheet" href="css/Style.css" type="text/css" charset="utf-8" />
+    <title>Pantalla Activa Audios</title>
+  </head>
+  <style>
+    body {
+      background-color: #1a1a1a;
+      height: 100vh;
+    }
+
+    #btnIniciarCurso {
+      background-color: #242424;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+    }
+
+    #imagenIniciarCurso {
+      position: absolute;
+      top: -50%;
+      left: 50%;
+      height: 300px;
+      width: 300px;
+      margin-top: -150px;
+      margin-left: -150px;
+      background-image: url("images/iniciarcurso.svg");
+    }
+  </style>
+
+  <body id="particles-js" onresize="location.reload()">
+    <div id="contenido">
+      <img id="imagen1" class="element" _origeny="0" _origenx="0" />
+      <!-- cargador -->
+    </div>
+  </body>
+  <script>
+    $(document).ready(function () {
+      // cacularEscala();
+      // ajustarEscenario();
+      muestraContenido();
+
+      function muestraContenido() {
+        muestaTodo();
+
+        function muestaTodo() {
+          // parent.updateTracking();
+          parent.enviarEnfrente();
+          $("body").append("<div id='btnIniciarCurso'><div id='imagenIniciarCurso'></div></div>");
+          $("#imagenIniciarCurso").css("cursor", "pointer");
+          entrada($("#imagen1"), "default", 0.3, 0);
+          parpadea($("#boton1"), 0);
+          parpadea($("#imagenIniciarCurso"), 0);
+
+          var scorm = parent.pipwerks.SCORM;
+          // La variable de parent.lastPage viene del tracking en la parte de function checkProgress()
+          $("#btnIniciarCurso").on("click", function (event) {
+            parent.reproducir(0, 0);
+            if (parent.conection === true) {
+              DEBUG ? console.log("🚨currentPage", parent.currentPage) : "";
+              parent.load_audio_fondo();
+              if (parent.lastPage < 1 || parent.lastPage == null) {
+                DEBUG ? console.log("Inicio LMS") : "";
+                DEBUG ? console.log(parent.lastPage) : "";
+                parent.goPage(1);
+              } else if (parent.lastPage >= 1) {
+                DEBUG ? console.log("Reanudar LMS") : "";
+                parent.goPage(parent.lastPage);
+              } else {
+                parent.load_audio_fondo();
+                DEBUG ? console.log("Inicio SIN CONEXION") : "";
+                parent.goPage(1);
+              }
+            }
+          });
+        }
+      }
+
+      function terminarPantalla() {
+        if (parent.course != undefined) {
+          parent.alert_next();
+        }
+        DEBUG ? console.log("Termina Pantalla") : "";
+      }
+    });
+  </script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"
+    integrity="sha512-Kef5sc7gfTacR7TZKelcrRs15ipf7+t+n7Zh6mKNJbmW+/RRdCW9nwfLn4YX0s2nO6Kv5Y2ChqgIakaC6PW09A=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+  <script src="./js/particulas.js"></script>
+</html>

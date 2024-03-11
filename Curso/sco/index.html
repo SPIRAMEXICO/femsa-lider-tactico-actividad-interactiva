@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html class="bg1">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+		<meta http-equiv="Content-Language" content="es-MX" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<meta http-equiv="Expires" content="0" />
+		<meta http-equiv="Last-Modified" content="0" />
+		<meta http-equiv="Cache-Control" content="no-cache, mustrevalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<link rel="shortcut icon" href="images/favicon/favicon.ico" />
+		<link rel="apple-touch-icon" sizes="152x152" href="images/favicon/apple-touch-icon.png" />
+		<link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png" />
+		<link rel="manifest" href="images/favicon/site.webmanifest" />
+		<link rel="mask-icon" href="images/favicon/safari-pinned-tab.svg" color="#ff0000" />
+		<meta name="msapplication-TileColor" content="#ff0000" />
+		<meta name="theme-color" content="#ffffff" />
+
+		<script src="js/jquery-2.1.1.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+		<!-- <script src="js/figlet.js"></script> -->
+		<script src="js/comandosVoz.js"></script>
+		<script src="js/annyang.min.js"></script>
+		<script src="js/speechkitt.min.js"></script>
+		<script src="js/anime.min.js"></script>
+		<script src="js/TweenMax.js"></script>
+		<script src="js/howler.min.js"></script>
+		<script src="js/coreSuspendData.js"></script>
+		<script src="js/Tracking.js"></script>
+		<script src="js/Configuration.js"></script>
+		<script src="js/SCORM_API_wrapper.js"></script>
+		<script src="contenido/js/Animations.js"></script>
+		<script src="js/Conection.js"></script>
+		<script src="js/Time.js"></script>
+		<script src="js/fecha.js"></script>
+
+		<link rel="stylesheet" href="css/Template.css" type="text/css" charset="utf-8" />
+		<title>Curso e-learning</title>
+	</head>
+
+	<body onLoad="detect()">
+		<!-- onresize="loadContent()" -->
+		<div id="voltear"><img src="./images/pantallas_extra.png" style="width: 100%; height: 100%" /></div>
+		<div id="box">
+			<div id="content_audio_fondo"></div>
+			<div id="content"></div>
+			<div id="menuBar" class="menu" style="display: none">
+				<div id="fondoGeneral" class="btnNav fondo_general">
+					<!-- <img src="images/titulo.png" /> -->
+					<!-- <div id="pleca" class="btnNav pleca"><img src="images/pleca.png" /></div> -->
+				</div>
+				<!-- <div id="btnExit" class="btnNav btn boton_exit"><img src="images/btn_cerrar.png" /></div> -->
+				<!-- <div id="btnAudio" class="btnNav btn boton_audio"><img src="images/boton_audio.png" /></div> -->
+				<div id="btnReload" class="btnNav btn boton_reload"><img src="images/boton_actualizar.png" /></div>
+				<div id="btnPrev" class="btnNav btn boton_prev"><img src="images/boton_adelante.png" /></div>
+				<div id="btnNext" class="btnNav btn boton_next"><img src="images/boton_atras.png" /></div>
+			</div>
+		</div>
+
+		<!-- Reconocer la orientación del dispositivo -->
+		<script>
+			function detect() {
+				if (window.matchMedia('(orientation: portrait)').matches) {
+					console.log('%c PORTRAIT', 'font-size: 100%; color: #ff7e29; font-weight: 700;');
+					document.getElementById('box').style.display = 'none';
+					document.getElementById('voltear').style.display = 'block';
+					// window.loadContent();
+				}
+				if (window.matchMedia('(orientation: landscape)').matches) {
+					console.log('%c LANDSCAPE', 'font-size: 100%; color: #ff7e29; font-weight: 700;');
+					document.getElementById('box').style.display = 'block';
+					document.getElementById('voltear').style.display = 'none';
+					// window.loadContent();
+				}
+			}
+
+			var supportsOrientationChange = 'onorientationchange' in window,
+				orientationEvent = supportsOrientationChange ? 'orientationchange' : 'resize';
+			window.addEventListener(
+				orientationEvent,
+				function () {
+					setTimeout(function () {
+						detect();
+					}, 500);
+				},
+				false
+			);
+		</script>
+	</body>
+</html>

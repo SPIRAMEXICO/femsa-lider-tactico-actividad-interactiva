@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="Content-Language" content="es" />
+		<meta http-equiv="Expires" content="0" />
+		<meta http-equiv="Last-Modified" content="0" />
+		<meta http-equiv="Cache-Control" content="no-cache, mustrevalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<script src="js/jquery-2.1.1.min.js"></script>
+		<script src="js/preloadjs-0.6.2.min.js"></script>
+		<script src="js/anime.min.js"></script>
+		<script src="js/Animations.js"></script>
+		<script src="js/preCarga.js"></script>
+		<script src="js/jquery-ui.min.js"></script>
+		<script src="js/jquery.ui.touch-punch.min.js"></script>
+		<link rel="stylesheet" href="css/Style.css" type="text/css" charset="utf-8" />
+		<title>Pantalla 2</title>
+	</head>
+
+	<body>
+		<div id="contenido">
+			<img id="bg" class="element" _origeny="0" _origenx="0" src="images/pantalla2/Bg.png" />
+			<img id="fondo" class="element" _origeny="0" _origenx="0" src="images/interfaz.png" />
+			<img id="imagen1" class="element" _origeny="0" _origenx="0" src="images/pantalla2/img01.png" />
+			<img id="imagen2" class="element" _origeny="0" _origenx="0" src="images/pantalla2/img02.png" />
+			<img id="imagen3" class="element" _origeny="0" _origenx="0" src="images/pantalla2/img03.png" />
+			<img id="imagen4" class="element" _origeny="0" _origenx="0" src="images/pantalla2/img04.png" />
+			<img id="imagen5" class="element" _origeny="0" _origenx="0" src="images/pantalla2/img05.png" />
+			<img id="imagen6" class="element" _origeny="0" _origenx="0" src="images/pantalla2/img06.png" />
+			<img id="imagen7" class="element" _origeny="0" _origenx="0" src="images/pantalla2/drop.png" />
+
+			<!-- drops -->
+			<div id="drop1" class="element drop" _origeny="217" _origenx="927" style="width: 233px; height: 134px"></div>
+			<div id="drop2" class="element drop" _origeny="370" _origenx="927" style="width: 233px; height: 134px"></div>
+			<div id="drop3" class="element drop" _origeny="521" _origenx="927" style="width: 233px; height: 134px"></div>
+			<!-- drags -->
+			<img id="pieza1" class="element drag" _origeny="240" _origenx="589" src="images/pantalla2/drag01.png" />
+			<img id="pieza2" class="element drag" _origeny="396" _origenx="589" src="images/pantalla2/drag02.png" />
+			<img id="pieza3" class="element drag" _origeny="553" _origenx="589" src="images/pantalla2/drag03.png" />
+			<!-- retros -->
+			<img id="retroBien" class="element popup" _origeny="95" _origenx="0" src="images/pantalla2/popup_bien.png" />
+			<img id="retroMal" class="element popup" _origeny="95" _origenx="0" src="images/pantalla2/popup_mal.png" />
+			<!-- btns -->
+			<img id="btnAvanzar" class="element btn" _origeny="585" _origenx="542" src="images/pantalla2/btnAvanzar.png" />
+			<img id="btnSeguir" class="element btn" _origeny="585" _origenx="542" src="images/pantalla2/btnSeguir.png" />
+
+			<!-- cargador -->
+			<img id="cargando" class="cargando" src="images/cargando.gif" />
+		</div>
+	</body>
+	<script>
+		$(document).ready(function () {
+			let F = function muestraContenido() {
+				var respuestas = [2, 1, 3]; // Correctas
+				var seleccionadas = [0, 0, 0];
+				var intentos = parseInt(sessionStorage.getItem('intentos')) || 0;
+				var dropActivo = 0;
+				var dragActivo = 0;
+				var termino = false;
+				entrada($('#fondo'), 'default', 0.5, 0);
+				entrada($('#bg'), 'default', 0.5, 0);
+				entrada($('#imagen1'), 'default', 0.5, 0);
+				entrada($('#imagen2'), 'zoom', 0.5, 0.2);
+				entrada($('#imagen3'), 'zoom', 0.5, 0.4);
+				entrada($('#imagen4'), 'default', 0.5, 0.6);
+				entrada($('#imagen5'), 'izq', 0.5, 0.8);
+				entrada($('#imagen6'), 'izq', 0.5, 1);
+				entrada($('#imagen7'), 'default', 0.5, 1.1);
+				entrada($('#pieza1'), 'default', 0.5, 1.2);
+				entrada($('#pieza2'), 'default', 0.5, 1.3);
+				entrada($('#pieza3'), 'default', 0.5, 1.4);
+				entrada($('#drop1'), 'default', 0.5, 1.4);
+				entrada($('#drop2'), 'default', 0.5, 1.4);
+				entrada($('#drop3'), 'default', 0.5, 1.4);
+
+				$('.drag').draggable({
+					containment: 'parent',
+					cursor: 'grabbing',
+					revert: 'invalid', // cuando no haga drop, el elemento volverá a su posición inicial
+				});
+				$('.drop').droppable({
+					tolerance: 'intersect',
+					accept: '.drag',
+					drop: function () {
+						// $("#pieza" + dragActivo).draggable("destroy");
+						dropActivo = parseInt($(this).attr('id').substr(4, 2));
+						console.log('Drop ' + dropActivo);
+						console.log('Drag ' + dragActivo);
+						checkMatch();
+					},
+				});
+				///////////////// ⭐️ Anima las piezas ⭐️ ////////////////
+				$('.drag').mouseup(function () {
+					dragActivo = parseInt($(this).attr('id').substr(5, 2));
+				});
+
+				///////////////// ⭐️ Anima las piezas ⭐️ ////////////////
+				function checkMatch() {
+					seleccionadas[dropActivo - 1] = dragActivo;
+					console.log('seleccionadas', seleccionadas);
+					$('#pieza' + dragActivo).animate({
+						top: parseInt($('#drop' + dropActivo).attr('_origeny')),
+						left: parseInt($('#drop' + dropActivo).attr('_origenx')),
+					});
+
+					if (seleccionadas[0] !== 0 && seleccionadas[1] !== 0 && seleccionadas[2] !== 0) {
+						validar();
+					}
+				}
+
+				function validar() {
+					if (intentos > 1) {
+						parent.enviarEnfrente();
+
+						entrada($('#retroMal'), 'default', 0, 0);
+						entrada($('#btnSeguir'), 'default', 0, 0);
+					} else {
+						if (seleccionadas[0] !== 0 && seleccionadas[1] !== 0 && seleccionadas[2] !== 0) {
+							if (JSON.stringify(respuestas) === JSON.stringify(seleccionadas)) {
+								parent.enviarEnfrente();
+
+								entrada($('#retroBien'), 'default', 0, 0);
+								entrada($('#btnSeguir'), 'default', 0, 0);
+							} else {
+								parent.enviarEnfrente();
+								entrada($('#retroMal'), 'default', 0, 0);
+								entrada($('#btnAvanzar'), 'default', 0, 0);
+								sessionStorage.setItem('intentos', intentos + 1);
+							}
+						}
+					}
+				}
+
+				$('#btnAvanzar').on('click', function () {
+					parent.reLoad();
+				});
+				$('#btnSeguir').on('click', function () {
+					sessionStorage.removeItem('intentos');
+					parent.nextPage();
+					parent.reLoad();
+				});
+
+				$('#play').on('click', function () {
+					salida($(this), 'default', 0, 0);
+					entrada($('#pause'), 'default', 0, 0);
+					vid.play();
+				});
+
+				$('#pause').on('click', function () {
+					salida($(this), 'default', 0, 0);
+					entrada($('#play'), 'default', 0, 0);
+					vid.pause();
+				});
+
+				$('#volOn').on('click', function () {
+					entrada($('#volOff'), 'default', 0, 0);
+					salida($(this), 'default', 0, 0);
+					volVideo();
+				});
+
+				$('#volOff').on('click', function () {
+					entrada($('#volOn'), 'default', 0, 0);
+					salida($(this), 'default', 0, 0);
+					volVideo();
+				});
+
+				function volVideo() {
+					if (ismuted === false) {
+						vid.muted = true;
+						ismuted = true;
+					} else {
+						vid.muted = false;
+						ismuted = false;
+					}
+				}
+
+				function SetCurTime() {
+					vid.currentTime = vid.currentTime - 10;
+					vid.play();
+				}
+			};
+
+			///////////////// boton 1 ////////////////
+
+			preload(document.title, F);
+		}); //ready
+	</script>
+</html>

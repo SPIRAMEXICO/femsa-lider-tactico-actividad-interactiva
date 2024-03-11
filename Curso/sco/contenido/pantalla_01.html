@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html" charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="Content-Language" content="es" />
+		<meta http-equiv="Expires" content="0" />
+		<meta http-equiv="Last-Modified" content="0" />
+		<meta http-equiv="Cache-Control" content="no-cache, mustrevalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<script src="js/jquery-2.1.1.min.js"></script>
+		<script src="js/preloadjs-0.6.2.min.js"></script>
+		<script src="js/anime.min.js"></script>
+		<script src="js/Animations.js"></script>
+		<script src="js/preCarga.js"></script>
+		<link rel="stylesheet" href="css/Style.css" type="text/css" charset="utf-8" />
+		<title>Pantalla 1</title>
+	</head>
+
+	<body>
+		<div id="contenido">
+			
+			<img id="fondo" class="element" _origeny="0" _origenx="0" src="images/interfaz.png" />
+			<img id="bg" class="element" _origeny="0" _origenx="0" src="images/pantalla1/Bg.png" />
+			<img id="imagen1" class="element" _origeny="0" _origenx="0" src="images/pantalla1/img01.png" />
+			<img id="imagen2" class="element" _origeny="0" _origenx="0" src="images/pantalla1/img02.png" />
+			<img id="imagen3" class="element" _origeny="0" _origenx="0" src="images/pantalla1/img03.png" />
+			<img id="imagen4" class="element" _origeny="0" _origenx="0" src="images/pantalla1/img04.png" />
+			<img id="imagen5" class="element" _origeny="0" _origenx="0" src="images/pantalla1/img05.png" />
+			<img id="imagen6" class="element" _origeny="0" _origenx="0" src="images/pantalla1/img06.png" />
+			<img id="indicador" class="element" _origeny="562" _origenx="815" src="images/pantalla1/Indicador.png" />
+			<img id="btn1" class="element btn" _origeny="500" _origenx="900" src="images/pantalla1/btn01.png" />
+			<!-- cargador -->
+			<img id="cargando" class="cargando" src="images/cargando.gif" />
+		</div>
+	</body>
+	<script>
+		$(document).ready(function () {
+			let F = function muestraContenido() {
+				const vid = document.getElementById('cajaVideo');
+				var ismuted = false;
+				entrada($('#fondo'), 'default', 0.5, 0);
+				entrada($('#bg'), 'default', 0.5, 0);
+				entrada($('#imagen1'), 'default', 0.5, 0);
+				entrada($('#imagen2'), 'zoom', 0.5, 0.2);
+				entrada($('#imagen3'), 'zoom', 0.5, 0.4);
+				entrada($('#imagen4'), 'default', 0.5, 0.6);
+				entrada($('#imagen5'), 'izq', 0.5, 0.8);
+				entrada($('#imagen6'), 'izq', 0.5, 1);
+				parpadea($('#indicador'), 1.4)
+				parpadea($('#btn1'), 1.4)
+
+				$('#btn1').on('click', function () {
+					parent.nextPage();
+				});
+				
+
+				$('#back').on('click', function () {
+					SetCurTime();
+				});
+
+				$('#play').on('click', function () {
+					salida($(this), 'default', 0, 0);
+					entrada($('#pause'), 'default', 0, 0);
+					vid.play();
+				});
+
+				$('#pause').on('click', function () {
+					salida($(this), 'default', 0, 0);
+					entrada($('#play'), 'default', 0, 0);
+					vid.pause();
+				});
+
+				$('#volOn').on('click', function () {
+					entrada($('#volOff'), 'default', 0, 0);
+					salida($(this), 'default', 0, 0);
+					volVideo();
+				});
+
+				$('#volOff').on('click', function () {
+					entrada($('#volOn'), 'default', 0, 0);
+					salida($(this), 'default', 0, 0);
+					volVideo();
+				});
+
+				function volVideo() {
+					if (ismuted === false) {
+						vid.muted = true;
+						ismuted = true;
+					} else {
+						vid.muted = false;
+						ismuted = false;
+					}
+				}
+
+				function SetCurTime() {
+					vid.currentTime = vid.currentTime - 10;
+					vid.play();
+				}
+			};
+
+			///////////////// boton 1 ////////////////
+
+			preload(document.title, F);
+		}); //ready
+	</script>
+</html>
