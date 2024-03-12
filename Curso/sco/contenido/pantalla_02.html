@@ -46,6 +46,7 @@
 			<!-- btns -->
 			<img id="btnAvanzar" class="element btn" _origeny="585" _origenx="542" src="images/pantalla2/btnAvanzar.png" />
 			<img id="btnSeguir" class="element btn" _origeny="585" _origenx="542" src="images/pantalla2/btnSeguir.png" />
+			<img id="btnReintentar" class="element btn" _origeny="585" _origenx="542" src="images/pantalla2/btnReintentar.png" />
 
 			<!-- cargador -->
 			<img id="cargando" class="cargando" src="images/cargando.gif" />
@@ -116,7 +117,7 @@
 						parent.enviarEnfrente();
 
 						entrada($('#retroMal'), 'default', 0, 0);
-						entrada($('#btnSeguir'), 'default', 0, 0);
+						entrada($('#btnAvanzar'), 'default', 0, 0);
 					} else {
 						if (seleccionadas[0] !== 0 && seleccionadas[1] !== 0 && seleccionadas[2] !== 0) {
 							if (JSON.stringify(respuestas) === JSON.stringify(seleccionadas)) {
@@ -127,7 +128,7 @@
 							} else {
 								parent.enviarEnfrente();
 								entrada($('#retroMal'), 'default', 0, 0);
-								entrada($('#btnAvanzar'), 'default', 0, 0);
+								entrada($('#btnReintentar'), 'default', 0, 0);
 								sessionStorage.setItem('intentos', intentos + 1);
 							}
 						}
@@ -135,12 +136,15 @@
 				}
 
 				$('#btnAvanzar').on('click', function () {
+					parent.nextPage();
+					sessionStorage.removeItem('intentos');
+				});
+				$('#btnReintentar').on('click', function () {
 					parent.reLoad();
 				});
 				$('#btnSeguir').on('click', function () {
 					sessionStorage.removeItem('intentos');
 					parent.nextPage();
-					parent.reLoad();
 				});
 
 				$('#play').on('click', function () {
