@@ -178,11 +178,12 @@ html {
 }
 .boton_prev {
 	top: -97px;
-	left: 41px;
+	left: 0px;
 }
+
 .boton_next {
 	top: -97px;
-	left: 1067px;
+	left: 1104px;
 }
 .fondo_general {
 	top: -790px;
